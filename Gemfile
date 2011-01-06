@@ -48,4 +48,5 @@ gem "devise"
 gem "foreigner"
 gem "composite_primary_keys"
 gem "capistrano"
+gem "paperclip"
 gem "ruby_parser", :group => :development
