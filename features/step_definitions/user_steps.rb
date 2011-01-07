@@ -1,5 +1,7 @@
 Given /I am logged in/ do
-  visit user_omniauth_authorize_path(:facebook)
+  visit "/users/auth/facebook"
+  Then "I should be on the home page"
+  Then "I should see \"Successfully signed in with Facebook\""
 end
 
 Given /^I am not logged in$/ do
