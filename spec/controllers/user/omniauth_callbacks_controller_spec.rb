@@ -9,9 +9,13 @@ describe User::OmniauthCallbacksController do
    Devise::OmniAuth.unshort_circuit_authorizers!
   end
 
+  def sign_in(provider)
+    visit "/users/auth/facebook"
+    visit "/users/auth/facebook/callback"
+  end
   context "Facebook logon" do
     ACCESS_TOKEN = {
-      :access_token => "plataformatec"
+      :access_token => "TEST"
     }
 
     FACEBOOK_INFO = {
@@ -25,8 +29,9 @@ describe User::OmniauthCallbacksController do
 
     before(:each) do
       Devise::OmniAuth.stub!(:facebook) do |b|
+        Rails.logger.info "Stubbing facebook"
         b.post('/oauth/access_token') { [200, {}, ACCESS_TOKEN.to_json] }
-        b.get('/me?access_token=plataformatec') { [200, {}, FACEBOOK_INFO.to_json] }
+        b.get('/me?access_token=TEST') { [200, {}, FACEBOOK_INFO.to_json] }
       end
     end
 
@@ -37,7 +42,7 @@ describe User::OmniauthCallbacksController do
     context "First sign-in" do
       it "should create a user" do
         User.should_receive(:create!)
-        visit "/users/auth/facebook"
+        sign_in("facebook")
       end
 
       it "should log the user in"

@@ -1,6 +1,6 @@
 class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def facebook
-    Logger.info("Facebook login")
+    Rails.logger.info("Facebook login")
     User.create!
   end 
 end
