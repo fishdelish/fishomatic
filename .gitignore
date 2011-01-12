@@ -3,4 +3,4 @@ db/*.sqlite3
 log/*.log
 tmp/**/*
 test/**/*
-config/oauth_keys.yml
+config/omniauth_keys.yml
