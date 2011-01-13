@@ -1,23 +1,13 @@
 require 'spec_helper'
 
 describe User::OmniauthCallbacksController do
-  before(:each) do
-    Devise::OmniAuth.short_circuit_authorizers!
-  end
-
-  after(:each) do
-   Devise::OmniAuth.unshort_circuit_authorizers!
-  end
+  let(:user) {mock_model(User)}
 
   def sign_in(provider)
-    visit "/users/auth/facebook"
-    visit "/users/auth/facebook/callback"
+    controller.send(provider.to_sym)
   end
-  context "Facebook logon" do
-    ACCESS_TOKEN = {
-      :access_token => "TEST"
-    }
 
+  context "Facebook logon" do
     FACEBOOK_INFO = {
       :id => '12345',
       :link => 'http://facebook.com/user_example',
@@ -28,30 +18,37 @@ describe User::OmniauthCallbacksController do
     }
 
     before(:each) do
-      Devise::OmniAuth.stub!(:facebook) do |b|
-        Rails.logger.info "Stubbing facebook"
-        b.post('/oauth/access_token') { [200, {}, ACCESS_TOKEN.to_json] }
-        b.get('/me?access_token=TEST') { [200, {}, FACEBOOK_INFO.to_json] }
+      controller.stub!(:get_oauth_data).and_return(FACEBOOK_INFO.stringify_keys)
+    end
+
+    context "Successful sign-in" do
+      before do
+        user.stub!(:persisted?).and_return(true)
+        controller.stub!(:sign_in_and_redirect)
+        User.stub!(:find_by_facebook).and_return(user)
       end
-    end
 
-    after(:each) do
-      Devise::OmniAuth.reset_stubs!
-    end
-
-    context "First sign-in" do
-      it "should create a user" do
-        User.should_receive(:create!)
+      it "should find a user" do
+        User.should_receive(:find_by_facebook).with(FACEBOOK_INFO[:email])
         sign_in("facebook")
       end
 
-      it "should log the user in"
+      it "should log the user in" do
+        controller.should_receive(:sign_in_and_redirect).with(user, :event => :authentication)
+        sign_in("facebook")
+      end
     end
 
-    context "Repeated sign-in" do
-      it "shouldn't create a user"
-      it "should find the existing user"
-      it "should log the user in"
+    context "Unsuccessful sign-in" do
+      before do
+        user.stub!(:persisted?).and_return(false)
+        User.stub!(:find_by_facebook).and_return(user)
+      end
+
+      it "should try to find a user" do
+        User.should_receive(:find_by_facebook).with(FACEBOOK_INFO[:email])
+        sign_in("facebook")
+      end
     end
   end
 end
