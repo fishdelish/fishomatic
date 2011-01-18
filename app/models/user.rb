@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
-  def self.find_by_facebook(access_token, signed_in_resource=nil)
-
+  def self.find_by_facebook(email, signed_in_resource=nil)
+    User.create!(:email => email, :password => Devise.friendly_token[0,20])
   end
 end

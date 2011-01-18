@@ -1,7 +1,9 @@
 Fishomatic::Application.routes.draw do
+  get "home/index"
+
   devise_for :users, :controllers => {:omniauth_callbacks => "user/omniauth_callbacks"}
 
-  root :to => "home#test"
+  root :to => "home#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

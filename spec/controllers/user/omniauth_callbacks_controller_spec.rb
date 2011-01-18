@@ -3,8 +3,17 @@ require 'spec_helper'
 describe User::OmniauthCallbacksController do
   let(:user) {mock_model(User)}
 
+  before do
+    controller.stub!(:redirect_to)
+    controller.stub!(:sign_in_and_redirect)
+  end
+
   def sign_in(provider)
     controller.send(provider.to_sym)
+  end
+
+  it "should redirect omniauth failures to /" do
+    controller.send(:after_omniauth_failure_path_for, :user).should == root_url
   end
 
   context "Facebook logon" do
@@ -17,14 +26,13 @@ describe User::OmniauthCallbacksController do
       :website => 'http://blog.plataformatec.com.br'
     }
 
-    before(:each) do
+    before do
       controller.stub!(:get_oauth_data).and_return(FACEBOOK_INFO.stringify_keys)
     end
 
     context "Successful sign-in" do
       before do
         user.stub!(:persisted?).and_return(true)
-        controller.stub!(:sign_in_and_redirect)
         User.stub!(:find_by_facebook).and_return(user)
       end
 
@@ -49,6 +57,14 @@ describe User::OmniauthCallbacksController do
         User.should_receive(:find_by_facebook).with(FACEBOOK_INFO[:email])
         sign_in("facebook")
       end
+
+      it "should redirect the user to root" do
+        controller.should_receive(:redirect_to).with(root_url)
+        sign_in("facebook")
+      end
+
+      it "should provide an error message"
+
     end
   end
 end
