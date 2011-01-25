@@ -13,12 +13,15 @@ FACEBOOK_INFO = {
   :website => 'http://blog.plataformatec.com.br'
 }
 
+TWITTER_INFO = FACEBOOK_INFO.dup
+TWITTER_INFO[:link] = "http://twitter.com/user_example"
+
 Before do
   Devise::OmniAuth.short_circuit_authorizers!
   Devise::OmniAuth.stub!(:facebook) do |b|
     b.post('/oauth/access_token') { [200, {}, ACCESS_TOKEN.to_json] }
     b.get('/me?access_token=plataformatec') { [200, {}, FACEBOOK_INFO.to_json] }
-  end  
+  end
 end
 
 After do |scenario|

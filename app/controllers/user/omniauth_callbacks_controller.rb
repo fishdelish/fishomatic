@@ -7,6 +7,7 @@ class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     Rails.logger.info("Facebook login")
     @user = User.find_by_facebook(get_oauth_data['email'])
     if @user.persisted?
+      flash[:notice] = "Successfully signed in with Facebook"
       sign_in_and_redirect @user, :event => :authentication
     else
       redirect_to root_url

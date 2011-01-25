@@ -34,7 +34,11 @@ gem "rspec", :git => "git://github.com/rspec/rspec.git", :group => [:test, :deve
 gem "rspec-core", :git => "git://github.com/rspec/rspec-core.git", :group => [:test, :development]
 gem "rspec-expectations", :git => "git://github.com/rspec/rspec-expectations.git", :group => [:test, :development]
 gem "rspec-mocks", :git => "git://github.com/rspec/rspec-mocks.git", :group => [:test, :development]
+gem "autotest", :group => [:development, :test]
+gem "autotest-growl", :group => [:development, :test]
+gem "autotest-fsevent", :group => [:development, :test]
 gem "hpricot", :group => :development
+gem "spork", :git => "git://github.com/chrismdp/spork.git", :group => [:test, :development]
 gem "nokogiri"
 gem "shoulda", :group => :test
 gem "timecop", :group => :test

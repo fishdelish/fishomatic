@@ -45,6 +45,11 @@ describe User::OmniauthCallbacksController do
         controller.should_receive(:sign_in_and_redirect).with(user, :event => :authentication)
         sign_in("facebook")
       end
+
+      it "should inform the user of the success" do
+        sign_in("facebook")
+        flash[:notice].should == "Successfully signed in with Facebook"
+      end
     end
 
     context "Unsuccessful sign-in" do
