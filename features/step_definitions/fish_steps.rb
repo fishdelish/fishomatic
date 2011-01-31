@@ -1,5 +1,5 @@
 Given /^I have no FISH files$/ do
-  pending # express the regexp above with the code you wish you had
+  User.where(:email => "user@example.com").first.fish_files.map(&:destroy)
 end
 
 Given /^I upload the FISH file "([^"]*)"$/ do |arg1|

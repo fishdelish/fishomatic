@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :omniauthable, :validatable
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
+  has_many :fish_files
 
   def self.find_by_facebook(email, signed_in_resource=nil)
     if user = User.where(:email => email).first

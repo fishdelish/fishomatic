@@ -10,6 +10,7 @@ class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       flash[:notice] = "Successfully signed in with Facebook"
       sign_in_and_redirect @user, :event => :authentication
     else
+      flash[:error] = "Could not sign in with facebook"
       redirect_to root_url
     end
   end

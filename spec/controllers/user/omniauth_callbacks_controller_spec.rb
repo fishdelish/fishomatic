@@ -68,7 +68,10 @@ describe User::OmniauthCallbacksController do
         sign_in("facebook")
       end
 
-      it "should provide an error message"
+      it "should provide an error message" do
+        sign_in("facebook")
+        flash[:error].should == "Could not sign in with facebook"
+      end
 
     end
   end

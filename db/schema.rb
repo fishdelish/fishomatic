@@ -10,7 +10,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110106114829) do
+ActiveRecord::Schema.define(:version => 20110131104610) do
+
+  create_table "fish_files", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "fish_file_file_name"
+    t.string   "fish_file_content_type"
+    t.integer  "fish_file_file_size"
+    t.datetime "fish_file_updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                             :default => "", :null => false

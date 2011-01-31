@@ -1,0 +1,8 @@
+- if current_user
+  = link_to "Upload new FISH file", new_fish_file_path
+%ul
+- @fish_files.each do |fish_file|
+  %li
+    = link_to "Fish File", fish_file_path(fish_file)
+    - if fish_file.user_id == current_user.id
+      = link_to "Edit file", edit_fish_file_path(fish_file)

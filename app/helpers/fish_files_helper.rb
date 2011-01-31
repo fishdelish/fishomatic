@@ -1,0 +1,2 @@
+module FishFilesHelper
+end
