@@ -49,6 +49,11 @@ class FishFilesController < ApplicationController
   def show
     @fish_file = FishFile.find(params[:id])
   end
+
+  def file
+    @fish_file = FishFile.find(params[:id])
+    send_file @fish_file.data, :type => 'application/rdf+xml', :filename => @fish_file.name
+  end
   
   def display
     unless @fish_file = ExternalFishFile.where(:url => params[:fish_file]).first
@@ -57,7 +62,7 @@ class FishFilesController < ApplicationController
   end
 
   def file_location
-    @fish_file = ExternalFishFile.first(params[:id])
+    @fish_file = ExternalFishFile.find(params[:id])
     send_file @fish_file.data, :type => 'application/rdf+xml', :filename => @fish_file.name    
   end
 end

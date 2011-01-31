@@ -7,7 +7,11 @@ Fishomatic::Application.routes.draw do
     resources :fish_files, :only => [:index]
   end
 
-  resources :fish_files
+  resources :fish_files do
+    member do
+      get :file
+    end
+  end
 
   get 'fish_files/display' => 'fish_files#display'
   get 'fish_location/:id' => 'fish_files#file_location', :as => "external_fish_file"
