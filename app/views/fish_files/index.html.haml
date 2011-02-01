@@ -2,6 +2,6 @@
 %ul
 - @fish_files.each do |fish_file|
   %li
-    = link_to "Fish File", fish_file_path(fish_file)
+    = link_to "#{fish_file.name} - #{fish_file.user.email}", fish_file_path(fish_file)
     - if current_user && fish_file.user_id == current_user.id
       = link_to image_tag("pencil.png", :size => "20x20", :alt => "Edit file"), edit_fish_file_path(fish_file)

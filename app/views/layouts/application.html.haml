@@ -37,6 +37,6 @@
             Latest Uploads
             %ul
               -@latest_uploads.each do |f|
-                %li= link_to "Fish File", fish_file_path(f) 
+                %li= link_to "#{f.name} - #{f.user.email}", fish_file_path(f) 
             = link_to "All FISH files", fish_files_path
         .span-16.last= yield
