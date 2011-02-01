@@ -1,10 +1,18 @@
 - content_for(:exhibit) do
   = stylesheet_link_tag("fish")
   = javascript_include_tag("http://api.simile-widgets.org/exhibit/2.2.0/exhibit-api.js")
-%table{"ex:role" => "lens"}
+  = javascript_include_tag("http://static.simile.mit.edu/exhibit/extensions-2.0/map/map-extension.js?gmapkey=#{KEYS["gmap"]}")
+%table
   %tr
-    %td
-      %a{"ex:href-content" => ".speciesURI", "ex:content" => ".species"}
-  %tr
-    %td
-      %div{"ex:content" => ".label"}
+    %td{"ex:role" => "viewPanel"}
+      %table{"ex:role" => "lens"}
+        %tr
+          %td
+            %a{"ex:href-content" => ".speciesURI", "ex:content" => ".species"}
+        %tr
+          %td
+            %div{"ex:content" => ".label"}
+            %img{"ex:src" => ".attachment"}
+      %div{"ex:role" => "exhibit-view", "ex:viewClass" => "Exhibit.TabularView", "ex:columns" => ".date, .label", "ex:columnLabels" => "Date, Label", "ex:columnFormats" => "list, list", "ex:sortColumn" => "3", "ex:sortAscending" => "false"}
+      %div{"ex:role" => "view", "ex:viewClass" => "Map", "ex:latlng" => ".lat_lng"}
+      %div{"ex:role" => "view"}
