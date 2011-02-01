@@ -8,7 +8,7 @@ Fishomatic::Application.configure do
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
-  config.action_controller.default_url_options[:host] = "http://fishdelish.cs.man.ac.uk/fishomatic"
+  config.action_controller.default_url_options = {:host => "http://fishdelish.cs.man.ac.uk/fishomatic"}
   # Specifies the header that your server uses for sending files
   config.action_dispatch.x_sendfile_header = "X-Sendfile"
 
