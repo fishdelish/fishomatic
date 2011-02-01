@@ -18,7 +18,7 @@ class FishFile < ActiveRecord::Base
 <?xml version="1.0" encoding="UTF-8"?>
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:fish="http://fishdelish.cs.man.ac.uk/rdf/vocab/resource/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
   <fish:observation>
-    <rdfs:Label>#{params[:label]}</rdfs:Label>
+    <rdfs:label>#{params[:label]}</rdfs:label>
     <fish:species>#{params[:species]}</fish:species>
     <fish:lat_lng>#{params[:lat_long]}</fish:lat_lng>
     <fish:remarks>#{params[:remarks]}</fish:remarks>
