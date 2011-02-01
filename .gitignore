@@ -4,3 +4,4 @@ log/*.log
 tmp/**/*
 test/**/*
 config/omniauth_keys.yml
+public/system/**/*
