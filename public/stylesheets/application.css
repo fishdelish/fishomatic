@@ -1,0 +1,16 @@
+html {
+
+}
+
+body {
+  background-color: gray;
+}
+
+.container {
+  padding: 10px;
+  background-color: lightgray;
+}
+
+#sign-in-bar {
+  text-align: right;
+}

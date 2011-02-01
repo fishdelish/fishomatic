@@ -1,17 +1,42 @@
 !!! html5
 %html
   %head
-    = stylesheet_link_tag :application
+    = stylesheet_link_tag "blueprint/screen"
+    = stylesheet_link_tag "blueprint/print", :media => :print
+    /[if IE]
+      = stylesheet_link_tag "blueprint/ie"
+    = stylesheet_link_tag "application"
     = javascript_include_tag :defaults
     = csrf_meta_tag
     = yield(:fish_file)
     = yield(:exhibit)  
   %body
-    - if flash[:notice]
-      #notice= flash[:notice]
-    - if flash[:error]
-      #errors= flash[:error]
-    - unless current_user
-      #signin
-        = link_to "Facebook Signin", user_omniauth_authorize_path(:facebook)
-    =yield
+    .container
+      %header.span-24.last
+        %h1 Fishomatic
+      %section.span-24#body
+        -if flash[:notice]
+          .span-8 &nbsp;
+          .span-8#notice= flash[:notice]
+          .span-8.last &nbsp;
+        - if flash[:error]
+          .span-8 &nbsp;
+          .span-8#errors= flash[:error]
+          .span-8.last &nbsp;
+        .span-16 &nbsp;
+        .span-8.last#sign-in-bar
+          - unless current_user
+            = link_to image_tag("FaceBook.png", :alt => "Facebook Sign in", :width => "50", :height => "50"), user_omniauth_authorize_path(:facebook)
+            = link_to image_tag("Twitter.png", :alt => "Twitter Sign in", :width => "50", :height => "50"), user_omniauth_authorize_path(:twitter)
+          - else
+            = link_to image_tag("sign-out.png", :width => "50", :height => "50", :alt => "Sign out of fishOmatic"), destroy_user_session_path
+        .span-8#menu
+          -if current_user
+            .span-8.last= link_to "Upload FISH file", new_fish_file_path
+          .span-8.last
+            Latest Uploads
+            %ul
+              -@latest_uploads.each do |f|
+                %li= link_to "Fish File", fish_file_path(f) 
+            = link_to "All FISH files", fish_files_path
+        .span-16.last= yield

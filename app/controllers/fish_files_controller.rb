@@ -2,7 +2,7 @@ require 'open-uri'
 require 'uri'
 
 class FishFilesController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :only => [:new, :update, :edit, :create, :destroy]
 
   def new
     @fish_file = FishFile.new
@@ -52,7 +52,7 @@ class FishFilesController < ApplicationController
 
   def file
     @fish_file = FishFile.find(params[:id])
-    send_file @fish_file.data, :type => 'application/rdf+xml', :filename => @fish_file.name
+    send_data @fish_file.data, :type => 'application/rdf+xml', :filename => @fish_file.name
   end
   
   def display
@@ -63,6 +63,6 @@ class FishFilesController < ApplicationController
 
   def file_location
     @fish_file = ExternalFishFile.find(params[:id])
-    send_file @fish_file.data, :type => 'application/rdf+xml', :filename => @fish_file.name    
+    send_data @fish_file.data, :type => 'application/rdf+xml', :filename => @fish_file.name    
   end
 end

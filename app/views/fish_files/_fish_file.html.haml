@@ -1,5 +1,8 @@
-- content_for(:exhibit)
-  = stylesheet_link_tag(:fish)
-  = javascript_include_tag("")
-  = javascript_include_tag("")
-
+- content_for(:exhibit) do
+  = stylesheet_link_tag("fish")
+  = javascript_include_tag("http://api.simile-widgets.org/exhibit/2.2.0/exhibit-api.js")
+%table
+  %tr
+    %td{"ex:role" => "viewPanel"}
+      %div{"ex:role" => "view"}
+    %td browsing controls here...

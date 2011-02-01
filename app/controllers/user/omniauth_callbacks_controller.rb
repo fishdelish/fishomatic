@@ -15,6 +15,18 @@ class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
+  def twitter
+    Rails.logger.info("Twitter login")
+    @user = User.find_by_twitter(get_oauth_data["screen_name"] + "@twitter.com")
+    if @user.persisted?
+      flash[:notice] = "Successfully signed in with Twitter"
+      sign_in_and_redirect @user, :event => :authentication
+    else
+      flash[:error] = "Could not sign in with twitter"
+      redirect_to root_url
+    end
+  end
+
   protected
 
   def after_omniauth_failure_path_for(scope)

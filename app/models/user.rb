@@ -13,4 +13,12 @@ class User < ActiveRecord::Base
       User.create!(:email => email, :password => Devise.friendly_token[0,20]) 
     end
   end
+
+  def self.find_by_twitter(email, signed_in_resource=nil)
+    if user = User.where(:email => email).first
+      user
+    else
+      User.create!(:email => email, :password => Devise.friendly_token[0, 20])
+    end
+  end
 end
