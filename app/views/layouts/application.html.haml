@@ -33,7 +33,10 @@
             = link_to image_tag("sign-out.png", :width => "50", :height => "50", :alt => "Sign out of fishOmatic"), destroy_user_session_path
         .span-8#menu
           -if current_user
-            .span-8.last= link_to "Upload FISH file", new_fish_file_path
+            .span-8.last
+              = link_to "Upload FISH file", new_fish_file_path
+              %br/
+              = link_to "Create FISH file", full_new_fish_files_path
           .span-8.last
             Latest Uploads
             %ul

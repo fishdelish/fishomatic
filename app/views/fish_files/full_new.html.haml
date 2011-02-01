@@ -1,0 +1,14 @@
+= form_for(:fish_file, :url => full_create_fish_files_path) do |f|
+  = f.label :species
+  = f.text_field :species
+  %br/
+  = f.label :attachment_url
+  = f.text_field :attachment
+  %br/
+  = f.label :remarks
+  = f.text_field :remarks
+  %br/
+  = f.label "Lattitude,Longitude"
+  = f.text_field :lat_long
+  %br/
+  = f.submit "Create FISH file"

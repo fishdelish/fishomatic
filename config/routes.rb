@@ -10,6 +10,8 @@ Fishomatic::Application.routes.draw do
   resources :fish_files do
     collection do
       get :display
+      get :full_new
+      post :full_create
     end
     member do
       get :file

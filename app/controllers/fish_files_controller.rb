@@ -17,6 +17,19 @@ class FishFilesController < ApplicationController
     render :action => :new
   end
 
+  def full_new
+  end
+
+  def full_create
+    @fish = current_user.fish_files.new
+    @fish.build_file(params[:fish_file], request.session_options[:id])
+    @fish.save!
+    redirect_to fish_file_path(@fish), :notice => "Created FISH file"
+  rescue
+    flash.now[:error] = "Failed to create fish file"
+    render :action => :full_new
+  end
+
   def edit
     @fish_file = current_user.fish_files.find(params[:id])
   end
