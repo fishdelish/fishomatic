@@ -57,3 +57,5 @@ gem "foreigner"
 gem "capistrano"
 gem "paperclip"
 gem "ruby_parser", :group => :development
+gem "rdf"
+gem "rdf-raptor"

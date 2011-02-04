@@ -27,6 +27,8 @@
         .span-16 &nbsp;
         .span-8.last#sign-in-bar
           - unless current_user
+            = link_to "Sign up", new_user_registration_path
+            = link_to "Sign in", new_user_session_path
             = link_to image_tag("FaceBook.png", :alt => "Facebook Sign in", :width => "50", :height => "50"), user_omniauth_authorize_path(:facebook)
             = link_to image_tag("Twitter.png", :alt => "Twitter Sign in", :width => "50", :height => "50"), user_omniauth_authorize_path(:twitter)
           - else

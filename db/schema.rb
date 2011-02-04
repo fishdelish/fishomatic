@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110131122525) do
+ActiveRecord::Schema.define(:version => 20110204111824) do
 
   create_table "external_fish_files", :force => true do |t|
     t.string   "url"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20110131122525) do
     t.string   "encrypted_password", :limit => 128, :default => "", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "username"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

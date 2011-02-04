@@ -3,10 +3,6 @@ Fishomatic::Application.routes.draw do
   
   root :to => "fish_files#index"
 
-  resources :users do 
-    resources :fish_files, :only => [:index]
-  end
-
   resources :fish_files do
     collection do
       get :display

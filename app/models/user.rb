@@ -1,10 +1,12 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
-  devise :database_authenticatable, :omniauthable, :validatable
+  devise :database_authenticatable, :omniauthable, :validatable, :registerable
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
-  has_many :fish_files
+  attr_accessible :username, :email, :password, :password_confirmation, :remember_me
+  attr_readonly :username
+  validate :username, :presence => true, :unique => true
+  has_attached_file :fish_file
 
   def self.find_by_facebook(email, signed_in_resource=nil)
     if user = User.where(:email => email).first
