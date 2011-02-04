@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110204111824) do
+ActiveRecord::Schema.define(:version => 20110204131104) do
 
   create_table "external_fish_files", :force => true do |t|
     t.string   "url"
@@ -18,22 +18,16 @@ ActiveRecord::Schema.define(:version => 20110204111824) do
     t.datetime "updated_at"
   end
 
-  create_table "fish_files", :force => true do |t|
-    t.integer  "user_id"
+  create_table "users", :force => true do |t|
+    t.string   "email",                                 :default => "", :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "username"
     t.string   "fish_file_file_name"
     t.string   "fish_file_content_type"
     t.integer  "fish_file_file_size"
     t.datetime "fish_file_updated_at"
-  end
-
-  create_table "users", :force => true do |t|
-    t.string   "email",                             :default => "", :null => false
-    t.string   "encrypted_password", :limit => 128, :default => "", :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "username"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

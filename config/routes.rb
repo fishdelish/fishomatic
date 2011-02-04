@@ -3,15 +3,17 @@ Fishomatic::Application.routes.draw do
   
   root :to => "fish_files#index"
 
-  resources :fish_files do
-    collection do
-      get :display
-      get :full_new
-      post :full_create
-    end
-    member do
-      get :file
-    end
+  put "fish_files" => "fish_files#update" 
+  get "fish_files" => "fish_files#index", :as => "fish_files"
+
+  scope "/fish_files" do
+    get "display" => "fish_files#display"
+    get "file" => "fish_files#get_file", :as => "fish_files_file"
+    put "file" => "fish_files#upload"
+    get "file/edit" => "fish_files#edit_file", :as => "fish_files_edit_file"
+    get "edit" => "fish_files#edit", :as => "fish_files_edit"
+    get ":username" => "fish_files#show", :as => "fish_files_user"
+    get ":username/file" => "fish_files#get_file", :as => "fish_files_user_file"
   end
 
   get 'fish_location/:id' => 'fish_files#file_location', :as => "external_fish_file"

@@ -36,9 +36,9 @@
         .span-8#menu
           -if current_user
             .span-8.last
-              = link_to "Upload FISH file", new_fish_file_path
+              = link_to "Replace your FISH file", fish_files_edit_file_path
               %br/
-              = link_to "Create FISH file", full_new_fish_files_path
+              = link_to "Edit your FISH file", fish_files_edit_path
           .span-8.last
             Latest Uploads
             %ul
