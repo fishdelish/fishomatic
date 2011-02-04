@@ -1,12 +1,19 @@
+require 'fish_files'
+
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :omniauthable, :validatable, :registerable
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :username, :email, :password, :password_confirmation, :remember_me
+  attr_accessible :fish_file, :username, :email, :password, :password_confirmation, :remember_me
   attr_readonly :username
   validate :username, :presence => true, :unique => true
+
   has_attached_file :fish_file
+  include FishFileMethods
+  def file_path
+    self.fish_file.path
+  end
 
   def self.find_by_facebook(email, signed_in_resource=nil)
     if user = User.where(:email => email).first

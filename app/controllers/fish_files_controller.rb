@@ -2,43 +2,27 @@ require 'open-uri'
 require 'uri'
 
 class FishFilesController < ApplicationController
-  before_filter :authenticate_user!, :only => [:new, :update, :edit, :create, :destroy]
-
-  def new
-    @fish_file = FishFile.new
-  end
-
-  def create
-    @fish_file = current_user.fish_files.new(params[:fish_file])
-    @fish_file.save!
-    redirect_to fish_file_path(@fish_file), :notice => "Created FISH file"
-  rescue 
-    flash.now[:error] = "Failed to save fish file"
-    render :action => :new
-  end
+  before_filter :authenticate_user!, :only => [:update, :edit, :upload, :edit_file]
 
   def edit_file
+    @user = current_user
+  end
+
+  def upload
+    @user = current_user
+    @user.update_attributes!(:fish_file => params[:user][:fish_file])
+    redirect_to fish_files_user_url(:username => @user.username)
+  rescue
+    flash.now[:error] = "Something went wrong"
+    render :action => :edit_file
   end
 
   def edit
-    @fish_file = current_user.fish_files.find(params[:id])
+    @user = current_user
   end
 
   def update
-    @fish_file = current_user.fish_files.find(params[:id])
-    @fish_file.update_attributes!(params[:fish_file])
-    redirect_to fish_file_path(@fish_file), :notice => "Updated FISH file"
-  rescue
-    flash.now[:error] = "Failed to update fish file"
-    render :action => :new
-  end
-
-  def destroy
-    @fish_file = current_user.fish_files.find(params[:id])
-    @fish_file.destroy!
-    redirect_to user_fish_files_path(current_user)
-  rescue
-    redirect_to fish_file_path(@fish_file), :error => "Couldn't destroy fish file"
+    redirect_to fish_files_user_url(:username => current_user.username)
   end
 
   def index
@@ -49,9 +33,9 @@ class FishFilesController < ApplicationController
     @user = User.where(:username => params[:username]).first
   end
 
-  def file
-    @fish_file = FishFile.find(params[:id])
-    send_data @fish_file.data, :type => 'application/rdf+xml', :filename => @fish_file.name
+  def get_file
+    @user = params[:username] ? User.where(:username => params[:username]).first : current_user
+    send_data @user.data, :type => 'application/rdf+xml', :filename => @user.username + ".rdf"
   end
   
   def display
