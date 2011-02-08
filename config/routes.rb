@@ -1,7 +1,7 @@
 Fishomatic::Application.routes.draw do
   match "/auth/:provider/callback" => "authentications#create"
 
-  devise_for :users, :controllers => {:omniauth_callbacks => "user/omniauth_callbacks"}
+  devise_for :users
   resources :authentications
 
   root :to => "fish_files#index"
