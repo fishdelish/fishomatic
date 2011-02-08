@@ -1,0 +1,8 @@
+%h2 Your authentications
+%ul.authentications
+  - @authentications.each do |authentication|
+    %li= render :partial => 'authentication', :object => authentication
+
+%h2 Connect your account using:
+%ul.available_authentications
+  %li= render :partial => "authentication_type", :collection => [:facebook, :twitter]

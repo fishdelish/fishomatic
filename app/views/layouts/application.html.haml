@@ -29,8 +29,8 @@
           - unless current_user
             = link_to "Sign up", new_user_registration_path
             = link_to "Sign in", new_user_session_path
-            = link_to image_tag("FaceBook.png", :alt => "Facebook Sign in", :width => "50", :height => "50"), user_omniauth_authorize_path(:facebook)
-            = link_to image_tag("Twitter.png", :alt => "Twitter Sign in", :width => "50", :height => "50"), user_omniauth_authorize_path(:twitter)
+            = link_to image_tag("FaceBook.png", :alt => "Facebook Sign in", :width => "50", :height => "50"), omniauth_authorise_path(:facebook)
+            = link_to image_tag("Twitter.png", :alt => "Twitter Sign in", :width => "50", :height => "50"), omniauth_authorise_path(:twitter)
           - else
             = link_to image_tag("sign-out.png", :width => "50", :height => "50", :alt => "Sign out of fishOmatic"), destroy_user_session_path
         .span-8#menu

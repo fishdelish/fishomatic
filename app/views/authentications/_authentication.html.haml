@@ -1,0 +1,3 @@
+= image_tag(authentication.provider.to_s.downcase + ".png")
+= authentication.provider.humanize
+= link_to "Unlink account", authentication_path(authentication), :method => :delete
