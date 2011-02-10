@@ -1,8 +1,15 @@
 Fishomatic::Application.routes.draw do
   match "/auth/:provider/callback" => "authentications#create"
   match "/auth/failure" => "authentications#failure"
-  devise_for :users
-  resources :authentications
+  devise_for :users, :controllers => {:sessions => "user/sessions"} do
+    post "/users/link_account" => "user/sessions#link_account", :as => "link_account"
+  end
+  resources :authentications do
+    collection do
+      get :unknown
+      post :create_account
+    end
+  end
 
   root :to => "fish_files#index"
   

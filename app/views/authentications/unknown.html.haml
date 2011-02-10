@@ -1,0 +1,14 @@
+%p
+  = "We couldn't find a user linked to your #{@auth['provider'].humanize} account."
+  Please either log in or create a new account below.
+
+#login
+  = form_for(:user, :url => link_account_path) do |f|
+    = f.label :username
+    = f.text_field :username
+    %br/
+    = f.label :password
+    = f.password_field :password
+    %br/
+    = f.submit "Link account"
+

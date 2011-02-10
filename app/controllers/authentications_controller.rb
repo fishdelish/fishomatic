@@ -1,5 +1,5 @@
 class AuthenticationsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:create]
+  before_filter :authenticate_user!, :except => [:create, :failure, :unknown, :link_account, :create_account]
   def create
     if current_user
       add_authentication    
@@ -18,6 +18,25 @@ class AuthenticationsController < ApplicationController
     redirect_to authentications_url, :notice => "Removed authentication"
   end
 
+  def failure
+
+  end
+
+  def unknown
+    @auth = session["devise.omniauth"]
+  end
+
+  def link_account
+    user = warden.authenticate!(:scope => :user, :recall => "#{controller_path}#unknown")
+    current_user.authentications.create!(@auth["provider"], @auth["uid"])
+    sign_in_and_redirect user, :event => :authentication
+    session["devise.omniauth"] = nil    
+  end
+
+  def create_account
+
+  end
+
   private
 
   def add_authentication
@@ -32,7 +51,8 @@ class AuthenticationsController < ApplicationController
       Rails.logger.info "Logging in #{@authentication.user.email}"
       sign_in_and_redirect @authentication.user, :event => :authentication
     else
-      render :text => request.env["omniauth.auth"].to_yaml
+      session["devise.omniauth"] = auth.except("extra")
+      redirect_to unknown_authentications_path
     end
   end
 end
