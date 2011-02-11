@@ -29,6 +29,6 @@ class User < ActiveRecord::Base
   end
 
   def check_display_name
-    self.display_name = self.username if self.display_name.empty?
+    self.display_name = self.username if self.display_name.blank?
   end
 end
