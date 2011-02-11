@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110208111810) do
+ActiveRecord::Schema.define(:version => 20110211122557) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20110208111810) do
     t.string   "fish_file_content_type"
     t.integer  "fish_file_file_size"
     t.datetime "fish_file_updated_at"
+    t.string   "display_name"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

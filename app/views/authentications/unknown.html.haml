@@ -3,7 +3,7 @@
   Please either log in or create a new account below.
 
 #login
-  = form_for(:user, :url => link_account_path) do |f|
+  = form_for(@user, :url => link_account_path) do |f|
     = f.label :username
     = f.text_field :username
     %br/
@@ -12,3 +12,29 @@
     %br/
     = f.submit "Link account"
 
+#signup
+  
+  = form_for(@user, :url => user_registration_path) do |f|
+    %p
+      = f.label :username
+      %br/
+      = f.text_field :username
+    %p
+      = f.label :display_name
+      %i (if left blank, this will be your username)
+      %br/
+      = f.text_field :display_name
+    %p
+      = f.label :email
+      %br/
+      = f.email_field :email
+    %p
+      = f.label :password
+      %br/
+      = f.password_field :password
+    %p
+      = f.label :password_confirmation
+      %br/
+      = f.password_field :password_confirmation
+    %p
+      = f.submit "Create and link account"

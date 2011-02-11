@@ -33,16 +33,16 @@
             = link_to image_tag("Twitter.png", :alt => "Twitter Sign in", :width => "50", :height => "50"), omniauth_authorise_path(:twitter)
           - else
             = link_to image_tag("sign-out.png", :width => "50", :height => "50", :alt => "Sign out of fishOmatic"), destroy_user_session_path
+            = link_to "Linked accounts", authentications_path
+            = link_to "My account", edit_user_registration_path
         .span-8#menu
           -if current_user
             .span-8.last
               = link_to "Replace your FISH file", fish_files_edit_file_path
-              %br/
-              = link_to "Edit your FISH file", fish_files_edit_path
           .span-8.last
             Latest Uploads
             %ul
-              -@latest_uploads.each do |f|
-                %li= link_to "#{f.name} - #{f.user.email}", fish_file_path(f) 
+              -@latest_uploaders.each do |u|
+                %li= link_to u.display_name, fish_files_user_path(u)
             = link_to "All FISH files", fish_files_path
         .span-16.last= yield

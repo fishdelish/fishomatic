@@ -24,6 +24,10 @@ class AuthenticationsController < ApplicationController
 
   def unknown
     @auth = session["devise.omniauth"]
+    @user = User.new
+    @user.email = @auth["user_info"]["email"]
+    @user.username = @auth["user_info"]["nickname"]
+    @user.display_name = @auth["user_info"]["name"]
   end
 
   def link_account
