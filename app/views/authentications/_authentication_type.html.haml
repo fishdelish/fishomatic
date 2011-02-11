@@ -1,1 +1,4 @@
-= link_to authentication_type.to_s.humanize, omniauth_authorise_path(authentication_type)
+%li.authentication_type
+  = link_to image_tag(authentication_type.to_s + ".png", :size => "64x64"), omniauth_authorise_path(authentication_type)
+  %br/
+  = link_to authentication_type.to_s.humanize, omniauth_authorise_path(authentication_type)

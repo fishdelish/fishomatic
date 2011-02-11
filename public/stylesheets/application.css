@@ -11,6 +11,71 @@ body {
   background-color: lightgray;
 }
 
+.sign_out {
+  float: right;
+  padding-left: 3px;
+}
+
 #sign-in-bar {
   text-align: right;
+}
+
+h2 {
+  clear: both;
+}
+
+.authentication {
+  background-color: silver;
+  width: 20%;
+  display: block;
+  float: left;
+  padding: 5px;
+  margin: 2px;
+  border: 1px solid black;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+
+#notice {
+  border: 1px solid black;
+  background-color: silver;
+  text-align: center;
+}
+
+#errors {
+  border: 1px solid black;
+  background-color: silver;
+  text-align: center;
+  color: red;
+}
+
+.authentication > .image {
+  float: left;
+}
+
+.authentication > .title {
+  float: left;
+  margin: 0 2px;
+  font-weight: bold;
+}
+
+.authentication > .remove {
+  float: right;
+  font-weight: bold;
+}
+
+.remove > a {
+  text-decoration: none;
+  color: red;
+}
+
+.authentication_type {
+  padding: 5px;
+  list-style: none;
+  text-align: center;
+  margin: 0 2px;
+  float: left;
+  border: 1px solid black;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
 }

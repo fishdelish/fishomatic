@@ -19,7 +19,7 @@ class AuthenticationsController < ApplicationController
   end
 
   def failure
-
+    redirect_to root_url, :error => params[:message]
   end
 
   def unknown
@@ -37,10 +37,6 @@ class AuthenticationsController < ApplicationController
     session["devise.omniauth"] = nil    
   end
 
-  def create_account
-
-  end
-
   private
 
   def add_authentication
@@ -53,6 +49,7 @@ class AuthenticationsController < ApplicationController
     auth = request.env["omniauth.auth"]
     if @authentication = Authentication.where(:provider => auth["provider"], :uid => auth["uid"]).first
       Rails.logger.info "Logging in #{@authentication.user.email}"
+      flash[:notice] = "Welcome back #{@authentication.user.display_name}"
       sign_in_and_redirect @authentication.user, :event => :authentication
     else
       session["devise.omniauth"] = auth.except("extra")
