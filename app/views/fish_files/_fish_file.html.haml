@@ -14,15 +14,8 @@
             %div{"ex:content" => ".label"}
             %div{"ex:if-exists" => ".attachment"}
               %img{"ex:src-content" => ".attachment", :width => "300"}/
-            %div
-              Remarks: 
-              %span{"ex:content" => ".remark"}
-            %div
-              Temperature:
-              %span{"ex:content" => ".temperature"}
-            %div
-              Locality:
-              %span{"ex:content" => ".locality"}
+            - fish_file_fields.each do |field|
+              = render :partial => "exhibit_field", :locals => field
       %div{"ex:role" => "exhibit-view", "ex:viewClass" => "Exhibit.TabularView", "ex:columns" => ".date, .label, .species, .locality, .temperature", "ex:columnLabels" => "Date, Label, Species, Locality, Temperature", "ex:columnFormats" => "list, list, list, list, list", "ex:sortColumn" => "3", "ex:sortAscending" => "false"}
       %div{"ex:role" => "view", "ex:viewClass" => "Map", "ex:latlng" => ".lat_lng"}
       %div{"ex:role" => "view"}
