@@ -9,7 +9,7 @@ module FishFilesHelper
       {:field_name => ".lat_lng", :field_label => "Location (lat, long)"},
       {:field_name => ".accuracy", :field_label => "Location accuracy"},
       {:field_name => ".abundance", :field_label => "Species abundance"},
-      {:field_name => ".type", :field_label => "Species type"},
+      {:field_name => ".species_type", :field_label => "Species type"},
       {:field_name => ".gear", :field_label => "Gear used"},
       {:field_name => ".temperature", :field_label => "Temperature"},
       {:field_name => ".day_time", :field_label => "Day time"},
